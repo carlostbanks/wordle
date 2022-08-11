@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
-import { boardDefault } from '../Words'
 import Letter from './Letter';
 
 function Board() {
-  const [board, setBoard] = useState(boardDefault);
   return (
     <div className='board'>
       <div className='row'>
@@ -53,7 +51,7 @@ function Board() {
       <Letter letterPos={3} attemptVal={5}></Letter>
       <Letter letterPos={4} attemptVal={5}></Letter>
       </div>
-      
+
     </div>
   )
 }
