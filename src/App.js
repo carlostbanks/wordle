@@ -11,6 +11,7 @@ function App() {
   const [board, setBoard] = useState(boardDefault);
   const [currAttempt, setCurrAttempt] = useState({attempt: 0, letterPos: 0});
   const [wordSet, setWordSet] = useState(new Set())
+  const [disabledLetters, setDisabledLetters] = useState([]);
 
   const correctWord = "RIGHT";
 
@@ -38,8 +39,23 @@ function App() {
 
   const onEnter = () => {
       if (currAttempt.letterPos !== 5) return;
-      setCurrAttempt({attempt: currAttempt.attempt +1, letterPos:0 });
-      
+
+      let currWord = "";
+      for (let i = 0; i < 5; i++) {
+        currWord += board[currAttempt.attempt][i];
+      }
+
+      if (wordSet.has(currWord.toLowerCase())) {
+        setCurrAttempt({attempt: currAttempt.attempt +1, letterPos:0 });
+      } else {
+        alert("Word not found");
+      }
+
+      if (currWord === correctWord) {
+        alert("Game ended")
+      }
+
+
   }
 
 
@@ -48,7 +64,7 @@ function App() {
       <nav>
         <h1>Wordle Clone</h1>
       </nav>
-      <AppContext.Provider value={({board, setBoard, currAttempt, setCurrAttempt, onSelectLetter, onDelete, onEnter, correctWord})}>
+      <AppContext.Provider value={({board, setBoard, currAttempt, setCurrAttempt, onSelectLetter, onDelete, onEnter, correctWord, disabledLetters, setDisabledLetters})}>
         <div className='game'>
       <Board />
       <Keyboard />
